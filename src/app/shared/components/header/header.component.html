@@ -1,0 +1,16 @@
+<mat-toolbar class="navbar" >
+  <img src="../../../../assets/images/logo.png" >
+  <div class="navbar_selector">
+    <div class="navbar_selector_home active" (click)="choose('home')">
+      <mat-icon class="navbar_selector_icon" fontIcon="home"></mat-icon>
+      <p>Início </p>
+    </div>
+    <div class="navbar_selector_fav" (click)="choose('fav')">
+      <mat-icon class="navbar_selector_icon" fontIcon="favorite"></mat-icon>
+      <p>Favoritos</p>
+      <div class="navbar_selector_amount">
+        0
+      </div>
+    </div>
+  </div>
+</mat-toolbar>

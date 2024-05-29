@@ -1,0 +1,16 @@
+<div class="list">
+  <div class="list_top">
+    <h1>{{title}}</h1>
+    <div *ngIf="hasASearch" class="list_top_search">
+      <input class="list_top_search_field" placeholder="Pesquisar">
+    </div>
+  </div>
+  <div class="list_body_area">
+    <ml-empty-search *ngIf="isEmpty" [title]="'Parece que você ainda não tem favoritos'" [subtitle]="'Volte à página inicial e escolha os melhores para você.'" [usingButton]="true"></ml-empty-search>
+    <div class="list_body_cards" *ngIf="!isEmpty">
+
+      <ml-card *ngFor="let caracter of caracteresData " class="list_body_card" [title]="caracter.name" [subtitle]="caracter.species" [image]="caracter.image"></ml-card>
+
+    </div>
+  </div>
+</div>

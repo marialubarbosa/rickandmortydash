@@ -1,0 +1,41 @@
+h1 {
+    font-family: Creepster;
+    font-size: 48px;
+    font-weight: 700;
+    color: #00B5CC;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: #B2DF28;
+}
+
+.list {
+    padding: 0 25%;
+    width: 720px;
+}
+.list_top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.list_top_search_field {
+    border: 1px solid #3D3D3D;
+    font-family: Poppins;
+    border-radius: 10px;
+    height: 48px;
+    max-width: 327px;
+    min-width: 203px;
+    padding-left: 10px;
+    background-color: #1F1F1F !important;
+    color: #F2F2F2;
+}
+
+.list_body_cards {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.list_body_card {
+    margin-bottom: 20px;
+}

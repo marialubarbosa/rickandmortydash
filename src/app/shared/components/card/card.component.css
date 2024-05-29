@@ -1,0 +1,27 @@
+.card {
+    background-color: #0A0A0A;
+    width: 224px;
+    height: 298px;
+    border-radius: 12px;
+}
+
+.card_title {
+    color: #FFFFFF;
+    font-family: Creepster;
+    font-size: 24px;
+    font-weight: 400;
+    margin: 7px 0 0 0;
+}
+
+.card_subtitle {
+    font-family: Poppins;
+    font-size: 16px;
+    font-weight: 400;
+    margin: 0;
+    color: #A4A4A4;
+}
+
+.card_image {
+    height: 224px;
+    object-fit: cover;
+}
