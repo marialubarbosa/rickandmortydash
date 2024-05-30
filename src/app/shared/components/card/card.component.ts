@@ -1,20 +1,40 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { Subscription } from 'rxjs';
+import { Caracteres } from 'src/app/interfaces/caracteres';
+import { FavoriteService } from 'src/app/services/favorite.service';
 
 @Component({
   selector: 'ml-card',
   templateUrl: './card.component.html',
-  styleUrls: ['./card.component.css']
+  styleUrls: ['./card.component.css'],
 })
-export class CardComponent implements OnInit {
-  @Input() title!: string;
-  @Input() subtitle!: string;
-  @Input() image!: string;
-  @Input() isFavorite: boolean = false;
+export class CardComponent implements OnInit, OnDestroy {
+  @Input() caracter!: Caracteres;
+  @Output() favoriteIsEmpty = new EventEmitter();
+  public subscription$: Subscription = new Subscription();
 
-  constructor() { }
+  constructor(private readonly favoritesService: FavoriteService) {}
 
-  ngOnInit() {
-
+  ngOnInit() {}
+  ngOnDestroy(): void {
+    this.subscription$.unsubscribe();
   }
 
+  setFavorite(caracter: Caracteres) {
+    this.subscription$.add(this.favoritesService.setFavorite(caracter));
+    if (this.favoritesService.getFavorite().length === 0) {
+      this.favoriteIsEmpty.emit();
+    }
+
+    this.favoritesService.setFavNumber(
+      this.favoritesService.getFavorite().length
+    );
+  }
 }

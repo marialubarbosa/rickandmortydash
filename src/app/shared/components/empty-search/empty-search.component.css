@@ -14,12 +14,20 @@
     font-size: 24px;
     font-weight: 700;
     color: #FAFAFA;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    white-space: nowrap;
 }
 
 .empty_search_subtitle {
     font-size: 18px;
     font-weight: 400;
     color: #A4A4A4;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    white-space: nowrap;
 }
 
 .empty_search_button {
@@ -29,4 +37,5 @@
     color: #0A0A0A;
     padding: 10px;
     border-radius: 12px;
+    cursor: pointer;
 }

@@ -1,9 +1,22 @@
-<mat-card class="card ">
-  <mat-icon *ngIf="!isFavorite" class="card_icon card_icon_light material-symbols-outlined" fontIcon="favorite"></mat-icon>
-  <mat-icon *ngIf="isFavorite" class="card_icon card_icon_dark material-symbols-fill" fontIcon="favorite"></mat-icon>
-  <img class="card_image " mat-card-image [src]="image" >
+<mat-card class="card">
+  <div
+    [ngClass]="!caracter.favorite ? 'card_icon_area' : 'card_icon_dark_area'"
+    (click)="setFavorite(caracter)"
+  >
+    <mat-icon
+      class="card_icon_selected"
+      [ngClass]="
+        caracter.favorite
+          ? 'card_icon_dark material-symbols-fill'
+          : 'card_icon card_icon_light material-symbols-outlined'
+      "
+      fontIcon="favorite"
+    ></mat-icon>
+  </div>
+  <img class="card_image" mat-card-image [src]="caracter.image" />
   <mat-card-content>
-    <p class="card_title" >{{title}}</p>
-    <p class="card_subtitle" >{{subtitle}}</p>
+    <p class="card_title" [matTooltip]="caracter.name">{{ caracter.name }}</p>
+    <p *ngIf="caracter.species && caracter.species !== 'unknown'" class="card_subtitle">{{ caracter.species }}</p>
+    <p *ngIf="caracter.gender && caracter.gender !== 'unknown'" class="card_subtitle">{{ caracter.gender }}</p>
   </mat-card-content>
 </mat-card>

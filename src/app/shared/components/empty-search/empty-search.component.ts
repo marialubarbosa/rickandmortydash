@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'ml-empty-search',
@@ -7,9 +7,10 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class EmptySearchComponent implements OnInit {
 
-  @Input() title: string = 'Nada foi encontrado'
-  @Input() subtitle: string = 'Tente realizar uma nova busca.'
-  @Input() usingButton: boolean = false
+  @Input() title: string;
+  @Input() subtitle: string;
+  @Input() usingButton: boolean = false;
+  @Output() backToHome = new EventEmitter();
 
 
   constructor() { }

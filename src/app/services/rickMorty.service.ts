@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { urlConfig } from '../config/urlConfig';
-import {  CaracteresResponse, Filters } from '../interfaces/caracteres-interface';
+import {  CaracteresResponse, Filters } from '../interfaces/caracteres';
 
 @Injectable({
   providedIn: 'root'

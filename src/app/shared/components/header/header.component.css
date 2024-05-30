@@ -3,6 +3,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: fixed;
+    z-index: 199999;
 }
 
 .navbar_selector {
@@ -24,6 +26,7 @@
     font-family: Poppins;
     font-size: 14px;
     font-weight: 600;
+    cursor: pointer;
 }
 
 .navbar_selector_home p {

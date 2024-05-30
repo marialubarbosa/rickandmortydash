@@ -4,6 +4,7 @@ export interface Caracteres {
     image: string;
     gender: string;
     species: string;
+    favorite: boolean;
 }
 
 export interface Filters {

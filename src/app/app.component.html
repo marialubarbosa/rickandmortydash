@@ -1,10 +1,14 @@
-
-<ml-header></ml-header>
+<ml-header (changeTabs)="setTab($event)"></ml-header>
 <ml-list
-  [title]="'Favoritos'"
-  [hasASearch]="true"
-  [caracteresData]="caractersData"
+  [tabData]="tabData"
+  [caracteresData]="
+    tabData.title === 'Início' ? caractersData : caractersFavorite
+  "
   [isLoading]="isLoading"
   [isEmpty]="isEmpty"
   (search)="searchCaracters($event)"
+  (backToHome)="setTab('home')"
+  (favoriteIsEmpty)="
+    tabData.title === 'Início' ? (isEmpty = false) : (isEmpty = true)
+  "
 ></ml-list>

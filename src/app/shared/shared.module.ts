@@ -9,6 +9,7 @@ import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import { SkeletonComponent } from './components/skeleton/skeleton.component';
 import { FormsModule } from '@angular/forms';
+import { MatTooltipModule} from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,7 @@ import { FormsModule } from '@angular/forms';
     EmptySearchComponent,
     SkeletonComponent,
   ],
-  imports: [MatToolbarModule, MatIconModule, MatCardModule, CommonModule, FormsModule],
+  imports: [MatToolbarModule, MatIconModule, MatCardModule, CommonModule, FormsModule, MatTooltipModule],
   exports: [
     HeaderComponent,
     CardComponent,
