@@ -2,4 +2,13 @@
 // section
 //    router-outlet -->
 <ml-header></ml-header>
-<ml-list [title]="'Favoritos'" [hasASearch]="true" [caracteresData]="caractersData" ></ml-list>
+<h1 style="color: aliceblue">{{ isLoading }}</h1>
+
+<ml-list
+  [title]="'Favoritos'"
+  [hasASearch]="true"
+  [caracteresData]="caractersData"
+  [isLoading]="isLoading"
+  [isEmpty]="isEmpty"
+  (search)="searchCaracters($event)"
+></ml-list>

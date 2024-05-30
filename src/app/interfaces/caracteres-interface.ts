@@ -13,6 +13,9 @@ export interface Filters {
 }
 
 export interface CaracteresResponse {
+    info: {
+        next: string
+    }
     results: Array<Caracteres>,
 
 }

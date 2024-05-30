@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { urlConfig } from '../config/urlConfig';
-import {  CaracteresResponse } from '../interfaces/caracteres-interface';
+import {  CaracteresResponse, Filters } from '../interfaces/caracteres-interface';
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +15,8 @@ constructor(
 
 private url: string = urlConfig.rickMortyApi
 
-getAllCaracters (page: string) : Observable<CaracteresResponse> {
-  return this.http.get<CaracteresResponse>(`${this.url}/character?page=${page}`)
+getAllCaracters (filter: Filters) : Observable<CaracteresResponse> {
+  return this.http.get<CaracteresResponse>(`${this.url}/character?page=${filter.page}&name=${filter.search}`)
 }
 
 

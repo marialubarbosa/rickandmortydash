@@ -10,14 +10,11 @@ export class CardComponent implements OnInit {
   @Input() subtitle!: string;
   @Input() image!: string;
   @Input() isFavorite: boolean = false;
-  public notLoaded: boolean = true 
 
   constructor() { }
 
   ngOnInit() {
-    setTimeout(() => {
-      this.notLoaded = false
-    }, 2000);
+
   }
 
 }

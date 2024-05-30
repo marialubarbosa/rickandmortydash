@@ -1,15 +1,42 @@
 <div class="list">
   <div class="list_top">
-    <h1>{{title}}</h1>
+    <h1>{{ isEmpty }}</h1>
     <div *ngIf="hasASearch" class="list_top_search">
-      <input class="list_top_search_field" placeholder="Pesquisar">
+      <input
+        id="search"
+        [(ngModel)]="inputSearch"
+        class="list_top_search_field"
+        placeholder="Pesquisar"
+        (ngModelChange)="onSearch(inputSearch)"
+      />
     </div>
   </div>
   <div class="list_body_area">
-    <ml-empty-search *ngIf="isEmpty" [title]="'Parece que você ainda não tem favoritos'" [subtitle]="'Volte à página inicial e escolha os melhores para você.'" [usingButton]="true"></ml-empty-search>
+    <ml-empty-search
+      *ngIf="isEmpty"
+      [title]="'Parece que você ainda não tem favoritos'"
+      [subtitle]="'Volte à página inicial e escolha os melhores para você.'"
+      [usingButton]="true"
+    ></ml-empty-search>
     <div class="list_body_cards" *ngIf="!isEmpty">
-      <ml-card *ngFor="let caracter of caracteresData " class="list_body_card" [title]="caracter.name" [subtitle]="caracter.species" [image]="caracter.image"></ml-card>
+      <ng-container
+        *ngIf="isLoading; then unloaded; else loaded"
+      ></ng-container>
     </div>
     <div class="param-div" id="param"></div>
   </div>
 </div>
+
+<ng-template #loaded>
+  <ml-card
+    *ngFor="let caracter of caracteresData"
+    class="list_body_card"
+    [title]="caracter.name"
+    [subtitle]="caracter.species"
+    [image]="caracter.image"
+  ></ml-card>
+</ng-template>
+
+<ng-template #unloaded>
+  <ml-skeleton class="list_body_card" [numberItems]="20"></ml-skeleton>
+</ng-template>

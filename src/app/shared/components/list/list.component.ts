@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { debounceTime, first, fromEvent, map } from 'rxjs';
 import { Caracteres } from 'src/app/interfaces/caracteres-interface';
 
 @Component({
@@ -10,8 +11,12 @@ export class ListComponent implements OnInit {
   @Input() title!: string;
   @Input() hasASearch: boolean = true;
   @Input() caracteresData: Array<Caracteres> = [];
+  @Input() isLoading: boolean = false;
+  @Input() isEmpty: boolean = false;
+  @Output() search = new EventEmitter();
 
-  public isEmpty: boolean = false;
+  public time: any = null;
+  public inputSearch: string = '';
 
   constructor() {}
 
@@ -19,4 +24,10 @@ export class ListComponent implements OnInit {
     
   }
 
+  onSearch(event: string) {
+    clearTimeout(this.time);
+    this.time = setTimeout(() => {
+      this.search.emit(event)
+    } , 1000)
+  }
 }
