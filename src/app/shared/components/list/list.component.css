@@ -32,8 +32,9 @@ h1 {
 
 .list_body_cards {
     display: flex;
-    justify-content: space-between;
+    justify-content: start;
     flex-wrap: wrap;
+    gap: 3%
 }
 
 .list_body_card {

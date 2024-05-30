@@ -11,7 +11,6 @@ export class LoaderInterceptor implements HttpInterceptor{
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         this.loaderService.setLoader(true)
-        console.log('chamou interceptor')
         return next.handle(req).pipe(finalize(() => {this.loaderService.setLoader(false)}))
     }
 }

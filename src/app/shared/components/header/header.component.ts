@@ -15,7 +15,6 @@ export class HeaderComponent implements OnInit {
   public choose(type: string) {
     const home = document.getElementsByClassName('navbar_selector_home')
     const fav = document.getElementsByClassName('navbar_selector_fav')
-    console.log(home)
     if (type === 'home') {
       home[0].classList.add("active");
       fav[0].classList.remove("active")
