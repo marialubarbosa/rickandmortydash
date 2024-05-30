@@ -24,4 +24,31 @@
 .card_image {
     height: 224px;
     object-fit: cover;
+    border-radius: 12px 12px 0 0;
 }
+
+.card_icon {
+    position: absolute;
+    top: 6px;
+    right: 10px;
+    z-index: 1000;
+}
+
+.card_icon_light {
+    color: #FAFAFA;
+
+}
+
+.card_icon_dark {
+    color: #0A0A0A;
+}
+
+.loading {
+    outline: 1px solid transparent;
+    animation: pulseanim 0.9s ease-in-out infinite;
+    background-color: #3D3D3D;  
+  }
+  @keyframes pulseanim {
+    0% {  opacity: .9;}
+    100% { opacity: .5;}
+  }

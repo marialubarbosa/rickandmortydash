@@ -1,7 +1,10 @@
-<mat-card class="card">
-  <img class="card_image" mat-card-image [src]="image" alt="Photo of a Shiba Inu">
+<mat-card class="card ">
+  <mat-icon *ngIf="!isFavorite" class="card_icon card_icon_light material-symbols-outlined" fontIcon="favorite"></mat-icon>
+  <mat-icon *ngIf="isFavorite" class="card_icon card_icon_dark material-symbols-fill" fontIcon="favorite"></mat-icon>
+  <img *ngIf="!notLoaded" class="card_image " mat-card-image [src]="image" >
+  <div *ngIf="notLoaded" class="card_image loading" ></div>
   <mat-card-content>
-    <p class="card_title">{{title}}</p>
-    <p class="card_subtitle">{{subtitle}}</p>
+    <p class="card_title" [class]="notLoaded ? 'loading' : ''">{{title}}</p>
+    <p class="card_subtitle" [class]="notLoaded ? 'loading' : ''">{{subtitle}}</p>
   </mat-card-content>
 </mat-card>
