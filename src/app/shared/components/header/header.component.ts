@@ -2,6 +2,7 @@ import {
   ChangeDetectorRef,
   Component,
   EventEmitter,
+  Input,
   OnInit,
   Output,
 } from '@angular/core';
@@ -14,25 +15,23 @@ import { FavoriteService } from 'src/app/services/favorite.service';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-  @Output() changeTabs = new EventEmitter();
-  public numFav: Observable<number>;
-  public tab: string = 'home';
+  @Output() changeTabs: EventEmitter<string> = new EventEmitter<string>();
+  @Input() tab: string = 'home';
 
-  constructor(
-    private readonly favService: FavoriteService,
-    private readonly cdRef: ChangeDetectorRef
-  ) {}
+  public numFav$: Observable<number>;
+
+  constructor(private readonly favService: FavoriteService) {}
 
   ngOnInit() {
     this.watchFavNumberChanges();
   }
 
-  public choose(type: string) {
-    this.tab = type
-    this.changeTabs.emit(type);
+  public choose(type: string): void {
+    this.tab = type;
+    this.changeTabs.emit(this.tab);
   }
 
-  private watchFavNumberChanges() {
-    this.numFav = this.favService.getFavNumber();
+  private watchFavNumberChanges(): void {
+    this.numFav$ = this.favService.getFavNumber();
   }
 }

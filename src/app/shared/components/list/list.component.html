@@ -12,21 +12,27 @@
     </div>
   </div>
   <div class="list_body_area">
-    <ml-empty-search
-      *ngIf="isEmpty"
-      [title]="tabData.emptyTitle"
-      [subtitle]="tabData.emptySubtitle"
-      [usingButton]="tabData.emptyHasAButton"
-      (backToHome)="backToHome.emit()"
-    ></ml-empty-search>
-    <div class="list_body_cards" *ngIf="!isEmpty">
-      <ng-container
-        *ngIf="isLoading; then unloaded; else loaded"
-      ></ng-container>
-    </div>
+    <ng-container *ngIf="isEmpty; then empty; else hasData"></ng-container>
+
     <div *ngIf="tabData.showReferenceDiv" class="param-div" id="param"></div>
   </div>
 </div>
+
+<ng-template #empty>
+  <ml-empty-search
+    *ngIf="isEmpty"
+    [title]="tabData.emptyTitle"
+    [subtitle]="tabData.emptySubtitle"
+    [usingButton]="tabData.emptyHasAButton"
+    (backToHome)="backToHome.emit()"
+  ></ml-empty-search>
+</ng-template>
+
+<ng-template #hasData>
+  <div class="list_body_cards">
+    <ng-container *ngIf="isLoading; then unloaded; else loaded"></ng-container>
+  </div>
+</ng-template>
 
 <ng-template #loaded>
   <ml-card

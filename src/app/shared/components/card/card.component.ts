@@ -16,8 +16,10 @@ import { FavoriteService } from 'src/app/services/favorite.service';
   styleUrls: ['./card.component.css'],
 })
 export class CardComponent implements OnInit, OnDestroy {
-  @Input() caracter!: Caracteres;
-  @Output() favoriteIsEmpty = new EventEmitter();
+  @Input() caracter: Caracteres;
+  @Output() favoriteIsEmpty: EventEmitter<CustomEvent> =
+    new EventEmitter<CustomEvent>();
+
   public subscription$: Subscription = new Subscription();
 
   constructor(private readonly favoritesService: FavoriteService) {}
@@ -27,7 +29,7 @@ export class CardComponent implements OnInit, OnDestroy {
     this.subscription$.unsubscribe();
   }
 
-  setFavorite(caracter: Caracteres) {
+  public setFavorite(caracter: Caracteres): void {
     this.subscription$.add(this.favoritesService.setFavorite(caracter));
     if (this.favoritesService.getFavorite().length === 0) {
       this.favoriteIsEmpty.emit();

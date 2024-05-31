@@ -8,27 +8,25 @@ import { TabData } from 'src/app/interfaces/tab-data';
   styleUrls: ['./list.component.css'],
 })
 export class ListComponent implements OnInit {
-  @Input() tabData! : TabData;
+  @Input() tabData!: TabData;
   @Input() caracteresData: Array<Caracteres> = [];
   @Input() isLoading: boolean = false;
   @Input() isEmpty: boolean = false;
-  @Output() search = new EventEmitter();
-  @Output() backToHome = new EventEmitter();
-  @Output() favoriteIsEmpty = new EventEmitter();
+  @Output() search: EventEmitter<string> = new EventEmitter<string>();
+  @Output() backToHome: EventEmitter<CustomEvent> = new EventEmitter<CustomEvent>();
+  @Output() favoriteIsEmpty: EventEmitter<CustomEvent> = new EventEmitter<CustomEvent>();
 
   public time: any = null;
   public inputSearch: string = '';
 
   constructor() {}
 
-  ngOnInit() {
-    
-  }
+  ngOnInit() {}
 
-  onSearch(event: string) {
+  public onSearch(event: string): void {
     clearTimeout(this.time);
     this.time = setTimeout(() => {
-      this.search.emit(event)
-    } , 1000)
+      this.search.emit(event);
+    }, 1000);
   }
 }

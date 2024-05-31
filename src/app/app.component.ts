@@ -1,7 +1,12 @@
 import {
   ChangeDetectorRef,
   Component,
+  ElementRef,
+  OnChanges,
+  OnDestroy,
   OnInit,
+  SimpleChanges,
+  ViewChild,
 } from '@angular/core';
 import { RickMortyService } from './services/rickMorty.service';
 import {
@@ -20,18 +25,13 @@ import { HttpErrorResponse } from '@angular/common/http';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent implements OnInit {
-  title = 'rickandmortydash';
-  public isEmpty: boolean = false;
-  public filter: Filters = {
-    limit: '0',
-    page: '1',
-    search: '',
-  };
+export class AppComponent implements OnInit, OnDestroy {
+  public isEmpty: boolean;
+  public filter: Filters;
   public caractersData: Array<Caracteres> = [];
   public caractersFavorite: Array<Caracteres> = [];
   public subscription$: Subscription = new Subscription();
-  public isLoading: boolean = false;
+  public isLoading: boolean;
   public tabData: TabData;
 
   constructor(
@@ -40,34 +40,46 @@ export class AppComponent implements OnInit {
     private readonly cdRef: ChangeDetectorRef,
     private readonly favoritesService: FavoriteService
   ) {}
+
   ngOnInit(): void {
+    this.init();
     this.whatchForLoaderChanges();
     this.setTab('home');
   }
 
-  public observeLastCard(cardObserver: any) {
+  ngOnDestroy(): void {
+    this.subscription$.unsubscribe();
+  }
+
+  private whatchForLoaderChanges(): void {
+    this.subscription$.add(
+      this.loaderService.getLoader().subscribe((loader) => {
+        this.isLoading = loader;
+        this.cdRef.detectChanges();
+      })
+    );
+  }
+
+  private init() {
+    this.filter = {
+      limit: '0',
+      page: '1',
+      search: '',
+    };
+  }
+
+  private observeLastCard(cardObserver: any): void {
     const lastCard = document.getElementById('param');
     cardObserver.observe(lastCard);
   }
 
-  public async pagination() {
-    const observer = new IntersectionObserver((e) => {
-      if (e.some((a) => a.isIntersecting)) {
-        observer.disconnect();
-        this.filter.page = (parseInt(this.filter.page) + 1).toString();
-        this.getAll();
-      }
-    });
-    this.observeLastCard(observer);
-  }
-
   private getAll(): void {
-    this.caractersData = [];
     this.rickMortyService
       .getAllCaracters(this.filter)
       .pipe()
       .subscribe({
         next: (res: CaracteresResponse) => {
+          this.isEmpty = false;
           res.results.map((item) => {
             const isFavorite = this.caractersFavorite.findIndex(
               (fav: Caracteres) => fav.id === item.id
@@ -87,28 +99,29 @@ export class AppComponent implements OnInit {
       });
   }
 
-  whatchForLoaderChanges() {
-    this.subscription$.add(
-      this.loaderService.getLoader().subscribe((loader) => {
-        this.isLoading = loader;
-        this.cdRef.detectChanges();
-      })
-    );
+  private pagination(): void {
+    const observer = new IntersectionObserver((e) => {
+      if (e.some((a) => a.isIntersecting)) {
+        observer.disconnect();
+        this.filter.page = (parseInt(this.filter.page) + 1).toString();
+        this.getAll();
+      }
+    });
+    this.observeLastCard(observer);
   }
 
-  getFavorites() {
+  private getFavorites(): void {
     this.caractersFavorite = this.favoritesService.getFavorite();
     this.isEmpty = this.caractersFavorite.length === 0 ? true : false;
   }
 
-  searchCaracters(event: string) {
+  public searchCaracters(event: string): void {
     this.filter.search = event;
     this.filter.page = '1';
-    this.caractersData = [];
     this.getAll();
   }
 
-  setTab(tab: string) {
+  public setTab(tab: string): void {
     this.tabData = {
       title: tab === 'home' ? 'Início' : 'Favoritos',
       hasASearch: tab === 'home' ? true : false,

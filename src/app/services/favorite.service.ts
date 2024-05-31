@@ -10,35 +10,27 @@ export class FavoriteService {
   public numberFavorites = new BehaviorSubject<number>(0);
 
   constructor() {}
-  setFavorite(caracter: Caracteres) {
-    debugger
+  public setFavorite(caracter: Caracteres): void {
     const currentValue = this.favorites.getValue();
-    
-    let index;
-    currentValue.forEach((caract, i) => {
-      if (caract.id === caracter.id) {
-        index = i 
-        return
-      }
-    })
-    if (index || index === 0) {
-      caracter.favorite = false
-      currentValue.splice(index, 1) 
-      this.favorites.next(currentValue);
+
+    let idx = currentValue.findIndex((i: Caracteres) => i.id === caracter.id);
+    if (idx !== -1) {
+      caracter.favorite = false;
+      currentValue.splice(idx, 1);
     } else {
-      caracter.favorite = true
-      let favArr: any = [...this.favorites.getValue(), caracter];
-      this.favorites.next(favArr);
+      caracter.favorite = true;
+      currentValue.push(caracter);
     }
+
+    this.favorites.next(currentValue);
   }
 
-  getFavorite() {
-    // return this.favorites.asObservable();
-    return this.favorites.getValue()
+  public getFavorite(): Array<Caracteres> {
+    return this.favorites.getValue();
   }
 
-  setFavNumber(numFav: number) {
-    this.numberFavorites.next(numFav)
+  public setFavNumber(numFav: number): void {
+    this.numberFavorites.next(numFav);
   }
 
   getFavNumber(): Observable<number> {

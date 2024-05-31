@@ -9,23 +9,26 @@ import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import { SkeletonComponent } from './components/skeleton/skeleton.component';
 import { FormsModule } from '@angular/forms';
-import { MatTooltipModule} from '@angular/material/tooltip';
+import { MatTooltipModule } from '@angular/material/tooltip';
+
+const COMPONENTS = [
+  HeaderComponent,
+  CardComponent,
+  ListComponent,
+  EmptySearchComponent,
+  SkeletonComponent,
+];
 
 @NgModule({
-  declarations: [
-    HeaderComponent,
-    CardComponent,
-    ListComponent,
-    EmptySearchComponent,
-    SkeletonComponent,
+  declarations: [COMPONENTS],
+  imports: [
+    MatToolbarModule,
+    MatIconModule,
+    MatCardModule,
+    CommonModule,
+    FormsModule,
+    MatTooltipModule,
   ],
-  imports: [MatToolbarModule, MatIconModule, MatCardModule, CommonModule, FormsModule, MatTooltipModule],
-  exports: [
-    HeaderComponent,
-    CardComponent,
-    ListComponent,
-    EmptySearchComponent,
-    SkeletonComponent,
-  ],
+  exports: [COMPONENTS],
 })
 export class SharedModule {}

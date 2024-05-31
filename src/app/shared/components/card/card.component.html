@@ -16,7 +16,17 @@
   <img class="card_image" mat-card-image [src]="caracter.image" />
   <mat-card-content>
     <p class="card_title" [matTooltip]="caracter.name">{{ caracter.name }}</p>
-    <p *ngIf="caracter.species && caracter.species !== 'unknown'" class="card_subtitle">{{ caracter.species }}</p>
-    <p *ngIf="caracter.gender && caracter.gender !== 'unknown'" class="card_subtitle">{{ caracter.gender }}</p>
+    <p
+      *ngIf="caracter.species && caracter.species !== 'unknown'"
+      class="card_subtitle"
+    >
+      {{ caracter.species }}
+    </p>
+    <p
+      *ngIf="caracter.gender && caracter.gender !== 'unknown'"
+      class="card_subtitle"
+    >
+      {{ caracter.gender }}
+    </p>
   </mat-card-content>
 </mat-card>
