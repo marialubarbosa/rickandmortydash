@@ -33,6 +33,7 @@ export class AppComponent implements OnInit, OnDestroy {
   public subscription$: Subscription = new Subscription();
   public isLoading: boolean;
   public tabData: TabData;
+  private observer = new IntersectionObserver((e) => this.observerCallback(e))
 
   constructor(
     private readonly rickMortyService: RickMortyService,
@@ -45,6 +46,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.init();
     this.whatchForLoaderChanges();
     this.setTab('home');
+    this.observeLastCard();
   }
 
   ngOnDestroy(): void {
@@ -68,12 +70,12 @@ export class AppComponent implements OnInit, OnDestroy {
     };
   }
 
-  private observeLastCard(cardObserver: any): void {
+  private observeLastCard(): void {
     const lastCard = document.getElementById('param');
-    cardObserver.observe(lastCard);
+    if (lastCard) this.observer.observe(lastCard);
   }
 
-  private getAll(): void {
+  private getAll(observer?: any): void {
     this.rickMortyService
       .getAllCaracters(this.filter)
       .pipe()
@@ -84,12 +86,17 @@ export class AppComponent implements OnInit, OnDestroy {
             const isFavorite = this.caractersFavorite.findIndex(
               (fav: Caracteres) => fav.id === item.id
             );
-            item = { ...item, favorite: isFavorite !== -1 ? true : false };
-            if (!item.image)
-              item.image = '../../../../assets/images/no_image.png';
+            item = {
+              ...item,
+              favorite: isFavorite !== -1 ? true : false,
+            };
             this.caractersData.push(item);
           });
-          if (res.info.next !== null) this.pagination();
+          if (this.caractersData.length >= 20 && res.info.next !== null) {
+            this.pagination();
+          } else {
+            this.observer.disconnect()
+          }
         },
         error: (error: HttpErrorResponse) => {
           if (error.status === 404) {
@@ -99,16 +106,19 @@ export class AppComponent implements OnInit, OnDestroy {
       });
   }
 
-  private pagination(): void {
-    const observer = new IntersectionObserver((e) => {
-      if (e.some((a) => a.isIntersecting)) {
-        observer.disconnect();
-        this.filter.page = (parseInt(this.filter.page) + 1).toString();
-        this.getAll();
-      }
-    });
-    this.observeLastCard(observer);
+  observerCallback (e:any) {
+    if (e.some((a:any) => a.isIntersecting)) {
+      this.observer.disconnect();
+      this.filter.page = (parseInt(this.filter.page) + 1).toString();
+      this.getAll();
+    }
   }
+
+  private pagination(): void {
+    this.observer;
+    this.observeLastCard();
+  }
+
 
   private getFavorites(): void {
     this.caractersFavorite = this.favoritesService.getFavorite();
@@ -118,6 +128,7 @@ export class AppComponent implements OnInit, OnDestroy {
   public searchCaracters(event: string): void {
     this.filter.search = event;
     this.filter.page = '1';
+    this.caractersData = [];
     this.getAll();
   }
 

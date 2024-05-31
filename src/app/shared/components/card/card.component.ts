@@ -21,6 +21,7 @@ export class CardComponent implements OnInit, OnDestroy {
     new EventEmitter<CustomEvent>();
 
   public subscription$: Subscription = new Subscription();
+  public defaultImage: string = '../../../../assets/images/no_image.png'
 
   constructor(private readonly favoritesService: FavoriteService) {}
 

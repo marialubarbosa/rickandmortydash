@@ -13,7 +13,7 @@
       fontIcon="favorite"
     ></mat-icon>
   </div>
-  <img class="card_image" mat-card-image [src]="caracter.image" />
+  <img class="card_image" mat-card-image [src]="caracter.image || defaultImage" />
   <mat-card-content>
     <p class="card_title" [matTooltip]="caracter.name">{{ caracter.name }}</p>
     <p
