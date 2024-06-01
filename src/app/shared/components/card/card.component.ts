@@ -7,7 +7,7 @@ import {
   Output,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { Caracteres } from 'src/app/interfaces/caracteres';
+import { Characters } from 'src/app/interfaces/characters';
 import { FavoriteService } from 'src/app/services/favorite.service';
 
 @Component({
@@ -16,7 +16,7 @@ import { FavoriteService } from 'src/app/services/favorite.service';
   styleUrls: ['./card.component.css'],
 })
 export class CardComponent implements OnInit, OnDestroy {
-  @Input() caracter: Caracteres;
+  @Input() character: Characters;
   @Output() favoriteIsEmpty: EventEmitter<CustomEvent> =
     new EventEmitter<CustomEvent>();
 
@@ -30,8 +30,8 @@ export class CardComponent implements OnInit, OnDestroy {
     this.subscription$.unsubscribe();
   }
 
-  public setFavorite(caracter: Caracteres): void {
-    this.subscription$.add(this.favoritesService.setFavorite(caracter));
+  public setFavorite(character: Characters): void {
+    this.subscription$.add(this.favoritesService.setFavorite(character));
     if (this.favoritesService.getFavorite().length === 0) {
       this.favoriteIsEmpty.emit();
     }

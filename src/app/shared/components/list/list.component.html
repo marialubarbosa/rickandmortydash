@@ -36,9 +36,9 @@
 
 <ng-template #loaded>
   <ml-card
-    *ngFor="let caracter of caracteresData"
+    *ngFor="let character of charactersData"
     class="list_body_card"
-    [caracter]="caracter"
+    [character]="character"
     (favoriteIsEmpty)="favoriteIsEmpty.emit()"
   ></ml-card>
 </ng-template>

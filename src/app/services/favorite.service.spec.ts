@@ -2,10 +2,10 @@
 
 import { TestBed, async, inject } from '@angular/core/testing';
 import { FavoriteService } from './favorite.service';
-import { Caracteres } from '../interfaces/caracteres';
+import { Characters } from '../interfaces/characters';
 import { of } from 'rxjs';
 
-const caracterList: Array<Caracteres> = [
+const caracterList: Array<Characters> = [
   {
     favorite: false,
     gender: '',

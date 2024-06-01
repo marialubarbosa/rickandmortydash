@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Caracteres } from 'src/app/interfaces/caracteres';
+import { Characters } from 'src/app/interfaces/characters';
 import { TabData } from 'src/app/interfaces/tab-data';
 
 @Component({
@@ -9,7 +9,7 @@ import { TabData } from 'src/app/interfaces/tab-data';
 })
 export class ListComponent implements OnInit {
   @Input() tabData!: TabData;
-  @Input() caracteresData: Array<Caracteres> = [];
+  @Input() charactersData: Array<Characters> = [];
   @Input() isLoading: boolean = false;
   @Input() isEmpty: boolean = false;
   @Output() search: EventEmitter<string> = new EventEmitter<string>();

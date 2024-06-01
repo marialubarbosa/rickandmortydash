@@ -10,10 +10,10 @@ import {
 } from '@angular/core';
 import { RickMortyService } from './services/rickMorty.service';
 import {
-  Caracteres,
-  CaracteresResponse,
+  Characters,
+  CharactersResponse,
   Filters,
-} from './interfaces/caracteres';
+} from './interfaces/characters';
 import { Subscription } from 'rxjs';
 import { LoaderService } from './services/loader.service';
 import { TabData } from './interfaces/tab-data';
@@ -28,8 +28,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class AppComponent implements OnInit, OnDestroy {
   public isEmpty: boolean;
   public filter: Filters;
-  public caractersData: Array<Caracteres> = [];
-  public caractersFavorite: Array<Caracteres> = [];
+  public caractersData: Array<Characters> = [];
+  public caractersFavorite: Array<Characters> = [];
   public subscription$: Subscription = new Subscription();
   public isLoading: boolean;
   public tabData: TabData;
@@ -80,11 +80,11 @@ export class AppComponent implements OnInit, OnDestroy {
       .getAllCaracters(this.filter)
       .pipe()
       .subscribe({
-        next: (res: CaracteresResponse) => {
+        next: (res: CharactersResponse) => {
           this.isEmpty = false;
           res.results.map((item) => {
             const isFavorite = this.caractersFavorite.findIndex(
-              (fav: Caracteres) => fav.id === item.id
+              (fav: Characters) => fav.id === item.id
             );
             item = {
               ...item,
@@ -101,7 +101,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   private stopObserver(
-    arrCharacter: Array<Caracteres>,
+    arrCharacter: Array<Characters>,
     isNext: string | null
   ): void {
     if (arrCharacter.length < 20 && isNext === null) {

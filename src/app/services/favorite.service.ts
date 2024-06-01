@@ -1,31 +1,31 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Caracteres } from '../interfaces/caracteres';
+import { Characters } from '../interfaces/characters';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FavoriteService {
-  public favorites = new BehaviorSubject<Array<Caracteres>>([]);
+  public favorites = new BehaviorSubject<Array<Characters>>([]);
   public numberFavorites = new BehaviorSubject<number>(0);
 
   constructor() {}
-  public setFavorite(caracter: Caracteres): void {
+  public setFavorite(character: Characters): void {
     const currentValue = this.favorites.getValue();
 
-    let idx = currentValue.findIndex((i: Caracteres) => i.id === caracter.id);
+    let idx = currentValue.findIndex((i: Characters) => i.id === character.id);
     if (idx !== -1) {
-      caracter.favorite = false;
+      character.favorite = false;
       currentValue.splice(idx, 1);
     } else {
-      caracter.favorite = true;
-      currentValue.push(caracter);
+      character.favorite = true;
+      currentValue.push(character);
     }
 
     this.favorites.next(currentValue);
   }
 
-  public getFavorite(): Array<Caracteres> {
+  public getFavorite(): Array<Characters> {
     return this.favorites.getValue();
   }
 

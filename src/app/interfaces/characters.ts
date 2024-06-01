@@ -1,4 +1,4 @@
-export interface Caracteres {
+export interface Characters {
   name: string;
   id: number;
   image: string;
@@ -13,9 +13,9 @@ export interface Filters {
   search: string;
 }
 
-export interface CaracteresResponse {
+export interface CharactersResponse {
   info: {
     next: string | null;
   };
-  results: Array<Caracteres>;
+  results: Array<Characters>;
 }

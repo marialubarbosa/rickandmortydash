@@ -4,12 +4,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { SharedModule } from './shared/shared.module';
-import { Caracteres, CaracteresResponse } from './interfaces/caracteres';
+import { Characters, CharactersResponse } from './interfaces/characters';
 import { Observable, of, throwError } from 'rxjs';
 import { RickMortyService } from './services/rickMorty.service';
 import { FavoriteService } from './services/favorite.service';
 
-const mockCharacters: Caracteres = {
+const mockCharacters: Characters = {
   favorite: false,
   gender: '',
   id: 1,
@@ -18,7 +18,7 @@ const mockCharacters: Caracteres = {
   species: '',
 };
 
-const mockResponseCharacters: CaracteresResponse = {
+const mockResponseCharacters: CharactersResponse = {
   info: {
     next: '',
   },
@@ -26,13 +26,13 @@ const mockResponseCharacters: CaracteresResponse = {
 };
 
 class MockRickMortyService {
-  getAllCaracters(): Observable<CaracteresResponse> {
+  getAllCaracters(): Observable<CharactersResponse> {
     return of(mockResponseCharacters);
   }
 }
 
 class MockFavoriteService {
-  getFavorite (): Array<Caracteres> {
+  getFavorite (): Array<Characters> {
     return [ mockCharacters]
   }
 
@@ -116,7 +116,7 @@ describe('AppComponent', () => {
   });
 
   it('should stop observer sentinell component', () => {
-    const response: CaracteresResponse = {
+    const response: CharactersResponse = {
       info: {
         next: null,
       },

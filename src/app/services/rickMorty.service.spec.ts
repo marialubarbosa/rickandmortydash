@@ -3,7 +3,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { HttpClient } from '@angular/common/http';
 import { of } from 'rxjs';
 import { RickMortyService } from './rickMorty.service';
-import { CaracteresResponse, Filters } from '../interfaces/caracteres';
+import { CharactersResponse, Filters } from '../interfaces/characters';
 import { urlConfig } from '../config/urlConfig';
 
 describe('RickMortyService - getAllCaracters method', () => {
@@ -28,7 +28,7 @@ describe('RickMortyService - getAllCaracters method', () => {
 
   it('should get all caracters', () => {
     const filter: Filters = { page: '1', search: 'Rick', limit: '' };
-    const mockResponse: CaracteresResponse = {
+    const mockResponse: CharactersResponse = {
       info: { next: ''},
       results: [{
         favorite: false,

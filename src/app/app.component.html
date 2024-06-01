@@ -2,7 +2,7 @@
   <ml-header (changeTabs)="setTab($event)" [tab]="tabData.title === 'Início' ? 'home' : 'fav'"></ml-header>
   <ml-list
     [tabData]="tabData"
-    [caracteresData]="
+    [charactersData]="
       tabData.title === 'Início' ? caractersData : caractersFavorite
     "
     [isLoading]="isLoading"

@@ -6,7 +6,7 @@ import { DebugElement } from '@angular/core';
 import { CardComponent } from './card.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { Caracteres } from 'src/app/interfaces/caracteres';
+import { Characters } from 'src/app/interfaces/characters';
 import { FavoriteService } from 'src/app/services/favorite.service';
 import { of } from 'rxjs';
 const mockCharacters = {
@@ -18,7 +18,7 @@ const mockCharacters = {
   species: '',
 };
 class MockFavoriteService {
-  getFavorite(): Array<Caracteres> {
+  getFavorite(): Array<Characters> {
     return [];
   }
   setFavorite() {}
@@ -42,7 +42,7 @@ describe('CardComponent', () => {
     fixture = TestBed.createComponent(CardComponent);
     favoriteService = TestBed.inject(FavoriteService);
     component = fixture.componentInstance;
-    component.caracter = mockCharacters
+    component.character = mockCharacters
     fixture.detectChanges();
   });
 
@@ -56,7 +56,7 @@ describe('CardComponent', () => {
       mockCharacters,
     ]);
     const spyFavNumber = spyOn(favoriteService, 'setFavNumber');
-    component.setFavorite(component.caracter);
+    component.setFavorite(component.character);
     expect(spySetFavorite).toHaveBeenCalledWith(mockCharacters);
     expect(spyGetFavorites).toHaveBeenCalled();
     expect(spyFavNumber).toHaveBeenCalledWith(1);
