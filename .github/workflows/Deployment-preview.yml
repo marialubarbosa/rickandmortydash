@@ -1,0 +1,50 @@
+name: Deployment
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+on:
+  push:
+    branches: ["develop"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v2
+
+      - name: Checkout Repositorio
+        uses: actions/checkout@v3
+
+      - name: Use Node.js 20
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: 🔨 Install dependencies
+        id: run_install
+        run: npm ci
+
+      - name: 🔨 Run tests
+        id: run_tests
+        run: npm run test
+
+      - name: 🔨 build project
+        if: ${{ steps.run_tests.conclusion == 'success' }}
+        id: build_project
+        run: npm run build
+
+  Deploy-Preview:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+      - name: Pull Vercel Environment Information
+        run: vercel pull --yes --environment=preview --token=51PGSYpYMjumtU7OSuAkNoNy
+      - name: Build Project Artifacts
+        run: vercel build --token=51PGSYpYMjumtU7OSuAkNoNy
+      - name: Deploy Project Artifacts to Vercel
+        run: vercel deploy --prebuilt --token=51PGSYpYMjumtU7OSuAkNoNy

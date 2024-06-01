@@ -1,0 +1,17 @@
+<ng-container *ngIf="tabData">
+  <ml-header (changeTabs)="setTab($event)" [tab]="tabData.title === 'Início' ? 'home' : 'fav'"></ml-header>
+  <ml-list
+    [tabData]="tabData"
+    [charactersData]="
+      tabData.title === 'Início' ? caractersData : caractersFavorite
+    "
+    [isLoading]="isLoading"
+    [isEmpty]="isEmpty"
+    (search)="searchCaracters($event)"
+    (backToHome)="setTab('home')"
+    (favoriteIsEmpty)="
+      tabData.title === 'Início' ? (isEmpty = false) : (isEmpty = true)
+    "
+  ></ml-list>
+</ng-container>
+
