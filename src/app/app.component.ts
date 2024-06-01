@@ -33,7 +33,7 @@ export class AppComponent implements OnInit, OnDestroy {
   public subscription$: Subscription = new Subscription();
   public isLoading: boolean;
   public tabData: TabData;
-  private observer = new IntersectionObserver((e) => this.observerCallback(e))
+  public observer = new IntersectionObserver((e) => this.observerCallback(e));
 
   constructor(
     private readonly rickMortyService: RickMortyService,
@@ -75,7 +75,7 @@ export class AppComponent implements OnInit, OnDestroy {
     if (lastCard) this.observer.observe(lastCard);
   }
 
-  private getAll(observer?: any): void {
+  private getAll(): void {
     this.rickMortyService
       .getAllCaracters(this.filter)
       .pipe()
@@ -92,22 +92,27 @@ export class AppComponent implements OnInit, OnDestroy {
             };
             this.caractersData.push(item);
           });
-          if (this.caractersData.length >= 20 && res.info.next !== null) {
-            this.pagination();
-          } else {
-            this.observer.disconnect()
-          }
+          this.stopObserver(this.caractersData, res.info.next);
         },
         error: (error: HttpErrorResponse) => {
-          if (error.status === 404) {
-            this.isEmpty = true;
-          }
+          this.isEmpty = true;
         },
       });
   }
 
-  observerCallback (e:any) {
-    if (e.some((a:any) => a.isIntersecting)) {
+  private stopObserver(
+    arrCharacter: Array<Caracteres>,
+    isNext: string | null
+  ): void {
+    if (arrCharacter.length < 20 && isNext === null) {
+      this.observer.disconnect();
+      return;
+    }
+    this.pagination();
+  }
+
+  private observerCallback(e: any) {
+    if (e.some((a: any) => a.isIntersecting)) {
       this.observer.disconnect();
       this.filter.page = (parseInt(this.filter.page) + 1).toString();
       this.getAll();
@@ -118,7 +123,6 @@ export class AppComponent implements OnInit, OnDestroy {
     this.observer;
     this.observeLastCard();
   }
-
 
   private getFavorites(): void {
     this.caractersFavorite = this.favoritesService.getFavorite();

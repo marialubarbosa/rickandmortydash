@@ -4,6 +4,8 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { HeaderComponent } from './header.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -11,7 +13,7 @@ describe('HeaderComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HeaderComponent ]
+      declarations: [ HeaderComponent ], imports: [MatToolbarModule, MatIconModule]
     })
     .compileComponents();
   }));
@@ -25,4 +27,13 @@ describe('HeaderComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should get a string and emit an event with a string', () => {
+    spyOn(component.changeTabs, 'emit');
+    component.choose('home')
+    expect(component.tab).toBe('home')
+    expect(component.changeTabs.emit).toHaveBeenCalledWith('home')
+  })
+  
+
 });

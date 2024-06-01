@@ -7,7 +7,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class LoaderService {
   public loader = new BehaviorSubject<boolean>(false);
   constructor() {}
-  public setLoader(loader: any): void {
+  public setLoader(loader: boolean): void {
     this.loader.next(loader);
   }
 

@@ -15,7 +15,7 @@ export interface Filters {
 
 export interface CaracteresResponse {
   info: {
-    next: string;
+    next: string | null;
   };
   results: Array<Caracteres>;
 }
