@@ -1,6 +1,6 @@
 # Rick and Morty Dash
 
-Este projeto é uma aplicação frontend desenvolvida em Angular que permite listar personagens da série "Rick and Morty". A aplicação utiliza a biblioteca Angular Material para a interface do usuário, e os Subjects do RxJs para gerenciar o estado dos dados. A aplicação também permite buscar personagens pelo nome e favoritar personagens. Os dados de personagens favoritos são armazenados usando Subjects do RxJs. O projeto inclui testes automatizados com Karma e Jasmine.
+Este projeto é uma aplicação frontend desenvolvida em Angular que permite listar personagens da série "Rick and Morty". A aplicação utiliza a biblioteca Angular Material para a interface do usuário, e os Subjects do RxJs para gerenciar o estado dos dados. A aplicação também permite buscar personagens pelo nome e favorita-los. Os dados de personagens favoritos são armazenados usando Subjects do RxJs. O projeto inclui testes automatizados com Jasmine.
 
 ## Pré-requisitos
 
