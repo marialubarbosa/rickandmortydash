@@ -1,0 +1,29 @@
+on:
+  push:
+    branches: ["develop"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v2
+
+      - name: Checkout Repositorio
+        uses: actions/checkout@v3
+
+      - name: Use Node.js 20
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: 🔨 Install dependencies
+        run: npm ci
+
+      - name: 🔨 Run tests
+        run: npm ci
+
+      - name: 🔨 build project
+        run: npm run build:prod
