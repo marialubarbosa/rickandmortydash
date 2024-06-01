@@ -1,4 +1,4 @@
-name: Validate
+name: Deployment
 
 on:
   push:
@@ -22,10 +22,22 @@ jobs:
           cache: "npm"
 
       - name: 🔨 Install dependencies
+        id: run_install
         run: npm ci
 
       - name: 🔨 Run tests
+        id: run_tests
         run: npm run test
 
       - name: 🔨 build project
+        if: ${{ steps.run_tests.conclusion == 'success' }}
+        id: build_project
         run: npm run build
+
+      - name: Deploy to Vercel
+        if: ${{ steps.build_project.conclusion == 'success' }}
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: npx vercel --prod --token $VERCEL_TOKEN --org-id $VERCEL_ORG_ID --project-id $VERCEL_PROJECT_ID
