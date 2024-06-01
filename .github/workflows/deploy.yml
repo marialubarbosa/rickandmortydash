@@ -2,7 +2,7 @@ name: Deploy vercel
 
 on:
   workflow_run:
-    workflows: ["Validation"]
+    workflows: [Validate]
     types:
       - completed
 
